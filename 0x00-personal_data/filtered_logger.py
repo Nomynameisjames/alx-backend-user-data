@@ -3,6 +3,8 @@
 from typing import List
 import re
 import logging
+import os
+import mysql.connector
 
 """
      function called filter_datum that returns the log message obfuscated:
@@ -67,3 +69,18 @@ def get_logger() -> logging.Logger:
     handler.setFormatter(formatter)
     logger.addHandler(handler)
     return logger
+
+
+def get_db():
+    """
+        function that returns a connector to the database
+    """
+    User = os.getenv('PERSONAL_DATA_DB_USERNAME') or "root"
+    Password = os.getenv('PERSONAL_DATA_DB_PASSWORD') or ""
+    Host = os.getenv('PERSONAL_DATA_DB_HOST') or "localhost"
+    DB_name = os.getenv('PERSONAL_DATA_DB_NAME')
+    Connection = mysql.connector.connect(user=User,
+                                         password=Password,
+                                         host=Host,
+                                         database=DB_name)
+    return Connection
