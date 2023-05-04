@@ -30,7 +30,7 @@ def view_one_user(user_id: str = None) -> str:
         abort(404, "Not found")
     if user_id == 'me' and request.current_user is not None:
         User = request.current_user.id
-    return jsonify({"auth_user": User})
+    return jsonify(User.to_json()), 200
 
 
 @app_views.route('/users/<user_id>', methods=['DELETE'], strict_slashes=False)
