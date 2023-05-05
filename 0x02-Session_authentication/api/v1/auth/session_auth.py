@@ -3,6 +3,7 @@
 import uuid
 from api.v1.auth.auth import Auth
 from models.user import User
+import os
 
 """
     implementation of SessionAuth class
@@ -32,3 +33,12 @@ class SessionAuth(Auth):
         if session_id is None or type(session_id) != str:
             return None
         return self.user_id_by_session_id.get(session_id)
+
+    def session_cookie(self, request=None):
+        """
+            session cookie
+        """
+        if request is None:
+            return None
+        session_name = os.getenv("SESSION_NAME")
+        return request.cookies.get(session_name)
