@@ -16,6 +16,18 @@ def view_all_users() -> str:
     return jsonify(all_users)
 
 
+@app_views.route('/users/me', methods=['GET'], strict_slashes=False)
+def view_me_user() -> str:
+    """ GET /api/v1/users/me
+    Return:
+      - User object JSON represented
+      - 404 if the User ID doesn't exist
+    """
+    if request.current_user is None:
+        abort(404)
+    return jsonify(request.current_user.to_json()), 200
+
+
 @app_views.route('/users/<user_id>', methods=['GET'], strict_slashes=False)
 def view_one_user(user_id: str = None) -> str:
     """ GET /api/v1/users/:id
@@ -30,9 +42,9 @@ def view_one_user(user_id: str = None) -> str:
     if user_id == 'me' and request.current_user is None:
         abort(404, "Not found")
     if user_id == 'me' and request.current_user is not None:
-        user = request.current_user.id
+        user = request.current_user
         return jsonify(User.to_json()), 200
-    user = User.get(user_id)
+    user = User.get(str(user_id))
     if user is None:
         abort(404)
     return jsonify(user.to_json()), 200
@@ -125,12 +137,3 @@ def update_user(user_id: str = None) -> str:
         user.last_name = rj.get('last_name')
     user.save()
     return jsonify(user.to_json()), 200
-
-
-@app_views.route('/users/me', methods=['GET'], strict_slashes=False)
-def view_me() -> str:
-    """ GET /api/v1/users/me
-    Return:
-      - User object JSON represented
-    """
-    return jsonify(User.get(request.user_id).to_json())
