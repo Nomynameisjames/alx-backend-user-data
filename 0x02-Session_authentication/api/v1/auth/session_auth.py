@@ -33,12 +33,3 @@ class SessionAuth(Auth):
         if session_id is None or type(session_id) != str:
             return None
         return self.user_id_by_session_id.get(session_id)
-
-    def session_cookie(self, request=None):
-        """
-            session cookie
-        """
-        if request is None:
-            return None
-        _my_session_id = os.getenv("SESSION_NAME")
-        return request.cookies.get(_my_session_id)
