@@ -9,7 +9,8 @@ from api.v1.auth.session_auth import SessionAuth
 
 class SessionExpAuth(SessionAuth):
     """
-        SessionExpAuth class
+        SessionExpAuth class that inherits from SessionAuth
+        add session expiration feature to SessionAuth
     """
     def __init__(self):
         try:
@@ -19,7 +20,9 @@ class SessionExpAuth(SessionAuth):
 
     def create_session(self, user_id=None):
         """
-            create session
+            create session method that create a Session ID for a user_id
+            by calling super() - super() will call the create_session()
+            method of SessionAuth
         """
         if user_id is None:
             return None
@@ -35,7 +38,8 @@ class SessionExpAuth(SessionAuth):
 
     def user_id_for_session_id(self, session_id=None):
         """
-            user id for session id
+            user id for session id method that returns a User ID based on
+            a Session ID
         """
         if session_id is None:
             return None
