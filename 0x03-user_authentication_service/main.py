@@ -44,8 +44,22 @@ def run_find_user_by():
     except InvalidRequestError:
         print("Invalid")
 
+def run_update_user():
+    email = 'test@test.com'
+    hashed_password = "hashedPwd"
+
+    user = my_db.add_user(email, hashed_password)
+    print(user.id)
+
+    try:
+        my_db.update_user(user.id, hashed_password='NewPwd')
+        print("Password updated")
+    except ValueError:
+        print("Error")
 
 if __name__ == "__main__":
     #print_obj()
     #run_add_user()
-    run_find_user_by()
+    #run_find_user_by()
+    run_update_user()
+
