@@ -6,6 +6,7 @@ from user import User
 from db import DB
 from sqlalchemy.orm.exc import NoResultFound
 from sqlalchemy.exc import InvalidRequestError
+from auth import _hash_password
 
 my_db = DB()
 
@@ -57,9 +58,13 @@ def run_update_user():
     except ValueError:
         print("Error")
 
+def run_validate_hashed_password():
+    print(_hash_password("Hello Holberton"))
+
 if __name__ == "__main__":
     #print_obj()
     #run_add_user()
     #run_find_user_by()
-    run_update_user()
+    #run_update_user()
+    run_validate_hashed_password()
 
