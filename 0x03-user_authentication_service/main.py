@@ -84,6 +84,14 @@ def run_valid_login():
     print(auth.valid_login(email, "WrongPwd"))
     print(auth.valid_login("unknown@email", password))
 
+def run_create_session():
+    email = 'bob@bob.com'
+    password = 'MyPwdOfBob'
+    auth.register_user(email, password)
+
+    print(auth.create_session(email))
+    print(auth.create_session("unknown@email.com"))
+
 if __name__ == "__main__":
     #print_obj()
     #run_add_user()
@@ -91,5 +99,6 @@ if __name__ == "__main__":
     #run_update_user()
     #run_validate_hashed_password()
     #run_authenticate()
-    run_valid_login()
+    #run_valid_login()
+    run_create_session()
 
