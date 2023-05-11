@@ -33,7 +33,7 @@ def users():
 
 
 @app.route('/sessions', methods=['POST'], strict_slashes=False)
-def login() -> str:
+def login():
     """
         endpoint to login a user and create a session
         session_id stored in cookie
@@ -44,7 +44,7 @@ def login() -> str:
         abort(401, description="Wrong password")
     else:
         session_id = AUTH.create_session(email)
-        response = jsonify({"email": f"{email}", "message": "logged in"})
+        response = jsonify({"email": email, "message": "logged in"})
         response.set_cookie("session_id", session_id)
         return response
 
