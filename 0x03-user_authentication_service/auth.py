@@ -6,6 +6,7 @@ import bcrypt
 from db import DB
 from user import User
 
+
 def _hash_password(password: str) -> bytes:
     """
         Returns a salted, hashed password, which is a byte string.
