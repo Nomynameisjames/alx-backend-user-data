@@ -75,11 +75,21 @@ def run_authenticate():
     except ValueError as err:
         print("could not create a new user: {}".format(err))
 
+def run_valid_login():
+    email = 'bob@bob.com'
+    password = 'MyPwdOfBob'
+    auth.register_user(email, password)
+
+    print(auth.valid_login(email, password))
+    print(auth.valid_login(email, "WrongPwd"))
+    print(auth.valid_login("unknown@email", password))
+
 if __name__ == "__main__":
     #print_obj()
     #run_add_user()
     #run_find_user_by()
     #run_update_user()
     #run_validate_hashed_password()
-    run_authenticate()
+    #run_authenticate()
+    run_valid_login()
 
