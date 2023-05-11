@@ -7,8 +7,10 @@ from db import DB
 from sqlalchemy.orm.exc import NoResultFound
 from sqlalchemy.exc import InvalidRequestError
 from auth import _hash_password
+from auth import Auth
 
 my_db = DB()
+auth = Auth()
 
 def print_obj():
     print(User.__tablename__)
@@ -61,10 +63,23 @@ def run_update_user():
 def run_validate_hashed_password():
     print(_hash_password("Hello Holberton"))
 
+def run_authenticate():
+    email = 'me@me.com'
+    password = 'mySecuredPwd'
+    try:
+        user = auth.register_user(email, password)
+        print("successfully created a new user!")
+        print('\n')
+        user = auth.register_user(email, password)
+        print("successfully created a new user!")
+    except ValueError as err:
+        print("could not create a new user: {}".format(err))
+
 if __name__ == "__main__":
     #print_obj()
     #run_add_user()
     #run_find_user_by()
     #run_update_user()
-    run_validate_hashed_password()
+    #run_validate_hashed_password()
+    run_authenticate()
 
