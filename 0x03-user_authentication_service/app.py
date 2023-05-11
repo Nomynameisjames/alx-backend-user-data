@@ -54,14 +54,13 @@ def logout():
     """
         endpoint to logout a user and destroy a session
     """
-    session_id = request.cookies.get('session_id')
+    session_id = request.cookies.get('session_id', None)
     user = AUTH.get_user_from_session_id(session_id)
-    if user:
-        AUTH.destroy_session(user.id)
-        return redirect('/')
-    else:
-        abort(403)
+    if user is None or session_id is None:
+        abort(403, description="forbidden")
+    AUTH.destroy_session(user.id)
+    return redirect('/')
 
 
 if __name__ == "__main__":
-    app.run(host="0.0.0.0", port="5000")
+    app.run(host="0.0.0.0", port="5001")
